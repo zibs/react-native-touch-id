@@ -48,8 +48,8 @@ public class FingerprintDialog extends DialogFragment
                              Bundle savedInstanceState) {
 
 
-        getDialog().setTitle(authConfig.title);
-        int color = Color.parseColor(authConfig.color);
+        getDialog().setTitle(authConfig.getString("title"));
+        int color = Color.parseColor(authConfig.getString("color"));
 
         setCancelable(false);
 
