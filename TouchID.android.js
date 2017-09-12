@@ -6,7 +6,11 @@ export default {
     return new Promise((resolve, reject) => {
       NativeTouchID.isSupported(
         error => {
-          return reject(typeof error == 'String' ? createError(error, error) : createError(error));
+          return reject(
+            typeof error == 'String'
+              ? createError(error, error)
+              : createError(error)
+          );
         },
         success => {
           return resolve(true);
@@ -15,19 +19,19 @@ export default {
     });
   },
 
-  authenticate(reason, config = null) {
-    var authReason;
-    if (reason) {
-      authReason = reason;
-    } else {
-      authReason = ' ';
-    }
+  authenticate(reason, config = {}) {
+    var authReason = reason ? reason : ' ';
 
     return new Promise((resolve, reject) => {
       NativeTouchID.authenticate(
         authReason,
+        config,
         error => {
-          return reject(typeof error == 'String' ? createError(error, error) : createError(error));
+          return reject(
+            typeof error == 'String'
+              ? createError(error, error)
+              : createError(error)
+          );
         },
         success => {
           return resolve(true);

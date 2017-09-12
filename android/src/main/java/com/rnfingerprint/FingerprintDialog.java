@@ -46,20 +46,23 @@ public class FingerprintDialog extends DialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // getDialog().setTitle(getString(R.string.touch_dialog_title));
-        getDialog().setTitle("test1");
-        setCancelable(false);
-        View v = inflater.inflate(R.layout.fingerprint_dialog, container, false);
 
+
+        getDialog().setTitle(authConfig.title);
+        int color = Color.parseColor(authConfig.color);
+
+        setCancelable(false);
+
+        View v = inflater.inflate(R.layout.fingerprint_dialog, container, false);
 
         mFingerprintContent = v.findViewById(R.id.fingerprint_container);
 
-          mFingerprintDescription = (TextView) v.findViewById(R.id.fingerprint_description);
+        mFingerprintDescription = (TextView) v.findViewById(R.id.fingerprint_description);
 
         mFingerprintDescription.setText(authReason);
         mFingerprintImage = (ImageView) v.findViewById(R.id.fingerprint_icon);
 
-        mFingerprintImage.setColorFilter(Color.argb(255, 1, 135, 208));
+        mFingerprintImage.setColorFilter(color);
 
         mFingerprintHandler = new FingerprintHandler(this.getContext(), this.getActivity().getSystemService(FingerprintManager.class), this);
 
@@ -71,7 +74,7 @@ public class FingerprintDialog extends DialogFragment
 
 
         mCancelButton = (Button) v.findViewById(R.id.cancel_button);
-        mCancelButton.setTextColor(Color.argb(255, 1, 135, 208));
+        mCancelButton.setTextColor(color);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +109,10 @@ public class FingerprintDialog extends DialogFragment
 
     public void setReasonForAuthentication(String reason) {
       authReason = reason;
+    }
+
+    public void setAuthConfig(ReadableMap config) {
+      authConfig = config;
     }
 
     public interface DialogResultListener {
