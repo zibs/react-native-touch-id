@@ -1,19 +1,9 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-'use strict';
-import React, {
-  AppRegistry,
-  Component,
-  StyleSheet,
-  Text,
-  View,
-  Alert,
-  TouchableHighlight
-} from 'react-native';
+import React, { Component } from 'react';
+import { Alert, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-class TouchIDExample extends Component {
+import TouchID from 'react-native-touch-id';
+
+export default class App extends Component<{}> {
   _pressHandler() {
     const optionalConfigObject = { title: 'Authentication Required', color: '#e00606' };
     TouchID.authenticate('to demo this react-native component', optionalConfigObject)
@@ -38,12 +28,12 @@ class TouchIDExample extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <TouchableHighlight onPress={this._pressHandler}>
-          <Text>Authenticate with Touch ID</Text>
+        <Text style={styles.welcome}>Welcome to react-native-touch-id!</Text>
+        <TouchableHighlight style={styles.button} onPress={this._pressHandler}>
+          <Text style={styles.text}>Authenticate with Touch ID</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={this._testSupport}>
-          <Text> Test Support </Text>
+        <TouchableHighlight style={styles.button} onPress={this._testSupport}>
+          <Text style={styles.text}>Test Support</Text>
         </TouchableHighlight>
       </View>
     );
@@ -62,11 +52,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5
+  button: {
+    borderWidth: 1,
+    borderRadius: 7,
+    padding: 8,
+    margin: 30,
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
   }
-});
-
-AppRegistry.registerComponent('TouchIDExample', () => TouchIDExample);
+})
