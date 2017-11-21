@@ -1,55 +1,43 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 import TouchID from 'react-native-touch-id';
 
 export default class App extends Component<{}> {
+  _pressHandler() {
+    const optionalConfigObject = { title: 'Authentication Required', color: '#e00606' };
+    TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+      .then(success => {
+        Alert.alert('Authenticated Successfully');
+      })
+      .catch(error => {
+        Alert.alert('Authentication Failed');
+      });
+  }
+  _testSupport() {
+    TouchID.isSupported()
+      .then(supported => {
+        // Success code
+        Alert.alert('Touch ID supported');
+      })
+      .catch(error => {
+        // Failure code
+        Alert.alert('Touch ID not support');
+      });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>react-native-touch-id</Text>
-
-        <Text style={styles.instructions}>
-          github.com/naoufal/react-native-touch-id
-        </Text>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.clickHandler}
-          underlayColor="#0380BE"
-          activeOpacity={1}
-        >
-          <Text
-            style={{
-              color: '#fff',
-              fontWeight: '600',
-            }}
-          >
-            Authenticate with Touch ID
-          </Text>
+        <Text style={styles.welcome}>Welcome to react-native-touch-id!</Text>
+        <TouchableHighlight style={styles.button} onPress={this._pressHandler}>
+          <Text style={styles.text}>Authenticate with Touch ID</Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.button} onPress={this._testSupport}>
+          <Text style={styles.text}>Test Support</Text>
         </TouchableHighlight>
       </View>
     );
   }
-
-  clickHandler() {
-    TouchID.isSupported()
-      .then(() => {
-        authenticate();
-      })
-      .catch(error => {
-        alert('TouchID not supported');
-      });
-  }
-}
-
-function authenticate() {
-  return TouchID.authenticate()
-    .then(success => {
-      alert('Authenticated Successfully');
-    })
-    .catch(error => {
-      alert(error.message);
-    });
 }
 
 const styles = StyleSheet.create({
@@ -57,27 +45,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
-    margin: 10,
     fontSize: 20,
-    fontWeight: '600',
     textAlign: 'center',
-  },
-  instructions: {
-    marginBottom: 5,
-    color: '#333333',
-    fontSize: 13,
-    textAlign: 'center',
+    margin: 10
   },
   button: {
-    borderRadius: 3,
-    marginTop: 200,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: '#0391D7',
+    borderWidth: 1,
+    borderRadius: 7,
+    padding: 8,
+    margin: 30,
   },
-});
+  text: {
+    fontSize: 16,
+    fontWeight: '500',
+  }
+})

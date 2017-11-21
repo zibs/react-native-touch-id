@@ -1,13 +1,14 @@
 {
-	"name": "TouchIDExample",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start"
-	},
-	"dependencies": {
-		"react": "16.0.0-beta.5",
-		"react-native": "0.49.5",
-	  "react-native-touch-id": "file:../.."
-	}
+  "name": "TouchIDExample",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+		"postinstall": "rm -rf node_modules/react-native-touch-id/examples/"
+  },
+  "dependencies": {
+    "react": "16.0.0-beta.5",
+    "react-native": "0.49.5",
+    "react-native-touch-id": "file:../.."
+  }
 }
